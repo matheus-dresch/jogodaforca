@@ -1,3 +1,6 @@
-import {criaTeclado} from './teclado.js'
+import {criaTeclado} from './JS/teclado.js'
+import {iniciaJogo} from './JS/forca.js'
+ 
+criaTeclado() // Cria o teclado na página da forca.
 
-criaTeclado()
+iniciaJogo() // Inicia o jogo

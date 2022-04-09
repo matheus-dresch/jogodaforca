@@ -7,7 +7,6 @@ export function criaTeclado() {
         novoElemento.id = `key_${letra.toLowerCase()}`
         novoElemento.classList.add('tecla')
         novoElemento.innerText = letra
-    
         
         teclado.appendChild(novoElemento)
     }
