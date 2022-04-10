@@ -1,19 +1,22 @@
 let tentativas = 6
+let acertou = false
 
 export function iniciaJogo() {
-    const palavra = (retornaPalavra())
-    criaCaixas(palavra)
+    const palavra = (retornaPalavra()) // Escolhe a palavra a ser acertada aleatóriamente
+    criaCaixas(palavra) // Cria as caixas que indicam a quantidade de letras
+
     console.log(palavra);
+
     const teclas = document.querySelectorAll('.tecla')
 
     for (let tecla of teclas) {
         tecla.addEventListener('click', () => {
-            checaLetra(tecla, palavra)
+            checaLetra(tecla, palavra) // Adiciona o eventListener de clique a todas as teclas do teclado e chama a função para checar se acertou
         })
     }
 
     document.addEventListener('keypress', e => {
-        checaLetraTeclado(e, palavra)
+        checaLetraTeclado(e, palavra) // Adiciona a possibilidade do usuário jogar com o teclado
     })
 }
 
@@ -64,10 +67,14 @@ function acertouLetra(tecla) {
 }
 
 function errouLetra(tecla, palavra) {
+    const displayTentativas = document.querySelector('#tentativas')
+
     tecla.setAttribute('disabled', '')
     tecla.classList.add('errada')
 
     tentativas--
+
+    displayTentativas.innerHTML = `${tentativas}/6`
     checaDerrota(palavra)
 }
 
@@ -82,6 +89,7 @@ function checaVitoria(palavra, caixas) {
     const palavraStr = palavra.join('')
 
     if (palavraCaixaStr === palavraStr) {
+        acertou = true
         jogoTerminou('Parabéns! Você acertou a palavra.')
     }
 }
@@ -122,9 +130,11 @@ function desativaBotoes() {
 function checaLetraTeclado(e, palavra) {
     const teclaApertada = e.key
     const teclas = document.querySelectorAll('.tecla')
-    for (let tecla of teclas) {
-        if (tecla.innerText.toLowerCase() === teclaApertada && tentativas > 0) {
-            checaLetra(tecla, palavra)
+    if (!acertou && tentativas > 0) {
+        for (let tecla of teclas) {
+            if (tecla.innerText.toLowerCase() === teclaApertada) {
+                checaLetra(tecla, palavra)
+            }
         }
     }
 }
