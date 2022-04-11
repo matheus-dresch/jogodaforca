@@ -120,6 +120,7 @@ header h1 {
 
 .tecla:disabled {
     background-color: var(--disb-bg-color);
+    border: none;
     color: var(--dis-font-color);
 }
 
